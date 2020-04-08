@@ -1,13 +1,16 @@
 import { StocksAppConfig } from '@coding-challenge/stocks/data-access-app-config';
+///import dotenv from 'dotenv'
 
+//dotenv.config();
+///console.log(process.env)
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment: StocksAppConfig = {
   production: false,
-  apiKey: '',
-  apiURL: 'https://sandbox.iexapis.com'
+  apiKey: '', // process.env.APIKEY
+  apiURL: 'https://sandbox.iexapis.com' // process.env.APIURL
 };
 
 /*
