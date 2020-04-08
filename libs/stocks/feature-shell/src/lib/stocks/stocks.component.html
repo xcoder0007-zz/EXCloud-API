@@ -1,3 +1,4 @@
+Added screen readers label for a essential information
 <form [formGroup]="stockPickerForm">
   <mat-form-field aria-labelledby="search input form">
     <input
@@ -20,7 +21,7 @@
 
   <mat-form-field aria-labelledby="date form">
     <mat-label>Favorite time period</mat-label>
-    <mat-select formControlName="period">
+    <mat-select formControlName="period" (selectionChange)="__dispatchDateOnChange()">
       <mat-option
         *ngFor="let timePeriod of timePeriods"
         [value]="timePeriod.value"
