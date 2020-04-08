@@ -1,4 +1,3 @@
-Added screen readers label for a essential information
 <form [formGroup]="stockPickerForm">
   <mat-form-field aria-labelledby="search input form">
     <input
@@ -12,26 +11,37 @@ Added screen readers label for a essential information
       ><span
         *ngIf="
           !stockPickerForm.get('symbol').valid &&
-          stockPickerForm.get('symbol').touched
-        "
-        >Please enter a symbol</span
-      >
+          stockPickerForm.get('symbol').touched">Please enter a symbol</span>
+    </mat-error>
+  </mat-form-field>
+  
+  <mat-form-field aria-labelledby="date form">
+        <input matInput  
+       [max]="max" 
+       [matDatepicker]="fromPicker"
+        placeholder="From" 
+        formControlName="fromDate"
+        (change)="updateToDateSelection($event)">
+    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+    <mat-datepicker #fromPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput  
+        [min]="stockPickerForm.controls['fromDate'].value" 
+        [max]="max" 
+        [matDatepicker]="toPicker" 
+        placeholder="To" 
+        formControlName="toDate"
+        >
+    <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+    <mat-datepicker #toPicker></mat-datepicker>
+    <mat-error *ngIf="stockPickerForm.controls['toDate'].invalid">
+        To Date should be greater than From date.
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field aria-labelledby="date form">
-    <mat-label>Favorite time period</mat-label>
-    <mat-select formControlName="period" (selectionChange)="__dispatchDateOnChange()">
-      <mat-option
-        *ngFor="let timePeriod of timePeriods"
-        [value]="timePeriod.value"
-      >
-        {{ timePeriod.viewValue }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <button (click)="fetchQuote()" mat-raised-button>Go</button>
+  <button (click)="fetchQuote()" [disabled]="stockPickerForm.invalid"  mat-raised-button>Go</button>
 </form>
 
 <coding-challenge-chart [data$]="quotes$"></coding-challenge-chart>
